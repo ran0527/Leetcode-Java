@@ -11,5 +11,3 @@ public class Solution {
         }
         return res.length() == 0 ? "" : res.substring(0, res.length() - 1);
     }
-
-}Reverse Words in a String.ja
