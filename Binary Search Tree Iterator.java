@@ -10,7 +10,6 @@
 
 public class BSTIterator {
 
-    private TreeNode root;
     private Stack<TreeNode> stack;
     private TreeNode temp;
 
@@ -26,14 +25,18 @@ public class BSTIterator {
 
     /** @return the next smallest number */
     public int next() {
-        while (temp != null) {
-            stack.push(temp);
-            temp = temp.left;
-        }
+        int result = -1;
 
-        TreeNode t = stack.pop();
-        int result = t.val;
-        temp = t.right;
+        if (hasNext()) {
+            while (temp != null) {
+                stack.push(temp);
+                temp = temp.left;
+            }
+
+            TreeNode t = stack.pop();
+            result = t.val;
+            temp = t.right;
+        }
 
         return result;
     }
