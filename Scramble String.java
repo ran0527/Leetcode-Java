@@ -34,3 +34,33 @@ public class Solution {
         return false;
     }
 }
+
+// dp
+public class Solution {
+    public boolean isScramble(String s1, String s2) {
+        if (s1 == null || s2 == null || s1.length() != s2.length()) {
+            return false;
+        }
+        if (s1.length() == 0) {
+            return true;
+        }
+        boolean[][][] res = new boolean[s1.length()][s2.length()][s1.length()+1];
+
+        for (int i = 0; i < s1.length(); i++) {
+            for (int j = 0; j < s2.length(); j++) {
+                res[i][j][1] = (s1.charAt(i) == s2.charAt(j));
+            }
+        }
+
+        for (int subLen = 2; subLen <= s1.length(); subLen++) {
+            for (int i = 0; i <= s1.length() - subLen; i++) {
+                for (int j = 0; j <= s2.length() - subLen; j++) {
+                    for (int k = 1; k < subLen; k++) {
+                        res[i][j][subLen] |= (res[i][j][k] && res[i+k][j+k][subLen-k]) || (res[i][j+subLen-k][k] && res[i+k][j][subLen-k]);
+                    }
+                }
+            }
+        }
+        return res[0][0][s1.length()];
+    }
+}
