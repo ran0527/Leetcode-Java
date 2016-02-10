@@ -36,3 +36,38 @@ public class Solution {
         return false;
     }
 }
+
+// instance variable
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    int count;
+    public int countUnivalSubtrees(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        count = 0;
+        helper(root);
+        return count;
+    }
+
+    private boolean helper(TreeNode p) {
+        if (p == null) {
+            return true;
+        }
+        boolean left = helper(p.left);
+        boolean right = helper(p.right);
+        if (left && right && (p.left == null || p.left.val == p.val) && (p.right == null || p.right.val == p.val)) {
+            count++;
+            return true;
+        }
+        return false;
+    }
+}
